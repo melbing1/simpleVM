@@ -1,7 +1,10 @@
 #![allow(unused_imports)]
+#![allow(non_snake_case)]
+#![allow(non_camel_case_types)]
 #![allow(dead_code)]
+#![allow(unused_variables)]
 
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt::Result};
 
 #[derive(Default)]
 struct Register {
@@ -18,9 +21,9 @@ struct Address {
 }
 
 // Instructions
-fn read(a: &Address) -> String {
-    if a.loc < a.memmap.capacity() as usize { a.memmap.get(&a.loc) }
-    else { println!("SegFault") }
+fn read(a: &Address) -> Result<String, i32> {
+    if a.loc < a.memmap.capacity() as usize { Ok(a.memmap.get(&a.loc)) }
+    else { println!("SegFault"); Err(-1);  }
 }
 
 
